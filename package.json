@@ -1,0 +1,14 @@
+{
+  "name": "shipwrecks-server",
+  "version": "1.0.0",
+  "description": "Battleship game server",
+  "main": "server.js",
+  "scripts": {
+    "start": "PORT=3000 node ./server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.3"
+  }
+}
