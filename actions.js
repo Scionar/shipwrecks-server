@@ -1,6 +1,7 @@
-module.exports.addGame = name => ({
+module.exports.addGame = (name, authKey) => ({
   type: "ADD_GAME",
-  name
+  name,
+  authKey
 });
 
 module.exports.addPlayer = () => ({

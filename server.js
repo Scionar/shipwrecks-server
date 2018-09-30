@@ -17,10 +17,11 @@ app.post("/player", (req, res) => {
   res.json({ authKey: player.authKey });
 });
 
-app.post("/game", (req, res) => {
+app.post("/game", (req, res, next) => {
   const gameName = req.body.name;
-  store.dispatch(addGame(gameName));
-  res.json({ id: 0, name: "Argh Meow", status: "Waiting" });
+  const authKey = req.get('Auth-key');
+  store.dispatch(addGame(gameName, authKey));
+  res.json({});
 });
 
 app.get("/game", (req, res) => {

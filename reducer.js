@@ -15,7 +15,12 @@ const reducer = (state = defaultState, action) => {
         nextGameIndex: state.nextGameIndex + 1,
         games: [
           ...state.games,
-          { id: state.nextGameIndex, name: action.name, status: "Waiting" }
+          {
+            id: state.nextGameIndex,
+            name: action.name,
+            status: "Waiting",
+            players: [action.authKey]
+          }
         ]
       };
     case "ADD_PLAYER":
