@@ -1,7 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const store = require("./store");
-const { addPlayer, addGame } = require("./actions");
+const { addPlayer, addGame, joinGame } = require("./actions");
 const app = express();
 
 app.use(bodyParser.json({ type: "application/json" }));
@@ -26,6 +26,13 @@ app.post("/game", (req, res, next) => {
 
 app.get("/game", (req, res) => {
   res.json({ games: store.getState().games });
+});
+
+app.put("/game/:id/join", (req, res) => {
+  const id = Number(req.params.id);
+  const authKey = req.get('Auth-key');
+  store.dispatch(joinGame(id, authKey));
+  res.json({});
 });
 
 app.listen(process.env.PORT, () =>

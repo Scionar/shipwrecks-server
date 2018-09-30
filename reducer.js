@@ -35,6 +35,30 @@ const reducer = (state = defaultState, action) => {
           }
         ]
       };
+    case "JOIN_GAME":
+      const game = state.games.find(game => game.id === action.gameId);
+
+      const gameNotFound = game === undefined;
+      if (gameNotFound) return { ...state };
+
+      const alreadyJoined = game.players.includes(action.authKey);
+      const gameAlreadyStarted = game.status === "Started";
+      if (alreadyJoined || gameAlreadyStarted) return { ...state };
+
+      const newGames = state.games.map(game => {
+        if (game.id !== action.gameId) return game;
+
+        return {
+          ...game,
+          status: game.players.length === 1 ? "Started" : "Waiting",
+          players: [...game.players, action.authKey]
+        };
+      });
+
+      return {
+        ...state,
+        games: newGames
+      };
     default:
       return state;
   }
